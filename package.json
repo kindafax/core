@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "express": "^5.2.1",
+    "mariadb": "^3.5.4",
     "ws": "^8.21.1"
   },
   "devDependencies": {
