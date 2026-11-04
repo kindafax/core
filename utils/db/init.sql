@@ -16,6 +16,7 @@ CREATE TABLE `thread` (
 CREATE TABLE `user` (
     `id` UUID NOT NULL,
     `displayName` VARCHAR(16) NOT NULL,
+    `password` TEXT NOT NULL,
 
     CONSTRAINT pk_user
         PRIMARY KEY (`id`),
@@ -24,9 +25,26 @@ CREATE TABLE `user` (
         UNIQUE (`displayName`)
 );
 
+CREATE TABLE `userSession` (
+    `id` UUID NOT NULL,
+    `user` UUID NOT NULL,
+    `token` TEXT NOT NULL,
+    `isBot` BIT NOT NULL,
+    `createdAt` DATETIME NOT NULL,
+    `lastUsed` DATETIME NOT NULL,
+
+    CONSTRAINT pk_user_session
+        PRIMARY KEY (`id`),
+
+    CONSTRAINT  fk_user_session
+        FOREIGN KEY (`user`) REFERENCES `user`(`id`)
+            ON UPDATE RESTRICT
+            ON DELETE CASCADE
+);
+
 CREATE TABLE `message` (
     `id` UUID NOT NULL,
-    `threadId` UUID NOT NULL,
+    `thread` UUID NOT NULL,
     `body` TINYTEXT NOT NULL,
     `sentAt` DATETIME NOT NULL,
     `receivedAt` DATETIME NULL,
@@ -41,8 +59,8 @@ CREATE TABLE `message` (
 );
 
 CREATE TABLE `threadUser` (
-    `userId` UUID NOT NULL,
-    `threadId` UUID NOT NULL,
+    `user` UUID NOT NULL,
+    `thread` UUID NOT NULL,
 
     CONSTRAINT pk_threadUser
         PRIMARY KEY (`userId`, `threadId`),
