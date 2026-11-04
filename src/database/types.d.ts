@@ -1,7 +1,7 @@
 // Type definitions for database schema
 
 import { UUID } from 'node:crypto';
-import { Selectable } from 'kysely';
+import { Selectable, Generated } from 'kysely';
 
 export interface Database {
     thread: ThreadTable,
@@ -18,8 +18,8 @@ export interface ThreadTable {
 
 export interface UserTable {
     id: UUID,
-    displayName: String,
-    password: String,
+    displayName: string,
+    password: string,
 }
 
 export interface ThreadUserTable {
@@ -28,9 +28,9 @@ export interface ThreadUserTable {
 }
 
 export interface UserSessionTable {
-    id: UUID,
+    id: Generated<number>,
     user: UUID,
-    token: String,
+    token: string,
     isBot: boolean,
     createdAt: Date,
     lastUsed: Date,
@@ -39,7 +39,7 @@ export interface UserSessionTable {
 export interface MessageTable {
     id: UUID,
     thread: UUID,
-    body: String,
+    body: string,
     sentAt: Date,
     receivedAt: Date,
 }

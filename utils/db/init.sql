@@ -16,7 +16,7 @@ CREATE TABLE `thread` (
 CREATE TABLE `user` (
     `id` UUID NOT NULL,
     `displayName` VARCHAR(16) NOT NULL,
-    `password` TEXT NOT NULL,
+    `password` CHAR(60) BINARY NOT NULL,
 
     CONSTRAINT pk_user
         PRIMARY KEY (`id`),
@@ -26,7 +26,7 @@ CREATE TABLE `user` (
 );
 
 CREATE TABLE `userSession` (
-    `id` UUID NOT NULL,
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
     `user` UUID NOT NULL,
     `token` TEXT NOT NULL,
     `isBot` BIT NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `message` (
         PRIMARY KEY (`id`),
 
     CONSTRAINT fk_message
-        FOREIGN KEY (`threadId`) REFERENCES `thread`(`id`)
+        FOREIGN KEY (`thread`) REFERENCES `thread`(`id`)
             ON UPDATE RESTRICT
             ON DELETE RESTRICT
 );
@@ -63,14 +63,14 @@ CREATE TABLE `threadUser` (
     `thread` UUID NOT NULL,
 
     CONSTRAINT pk_threadUser
-        PRIMARY KEY (`userId`, `threadId`),
+        PRIMARY KEY (`user`, `thread`),
 
     CONSTRAINT fk_threadUser
-        FOREIGN KEY (`userId`) REFERENCES `user`(`id`)
+        FOREIGN KEY (`user`) REFERENCES `user`(`id`)
             ON UPDATE RESTRICT
             ON DELETE RESTRICT,
         
-        FOREIGN KEY (`threadId`) REFERENCES `thread`(`id`)
+        FOREIGN KEY (`thread`) REFERENCES `thread`(`id`)
             ON UPDATE RESTRICT
             ON DELETE RESTRICT
 
