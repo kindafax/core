@@ -54,7 +54,7 @@ export async function login(req: Request, res: Response) {
     const signingKey = readFileSync("utils/keys/private-insecure.pem")
     const token = jwt.sign(
         {
-            id: user,
+            userID: user.id,
             clientID: clientID,
             expiry: expiry       
         },
