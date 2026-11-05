@@ -31,7 +31,8 @@ CREATE TABLE `userSession` (
     `token` TEXT NOT NULL,
     `isBot` BIT NOT NULL,
     `createdAt` DATETIME NOT NULL,
-    `lastUsed` DATETIME NOT NULL,
+    `expiresAt` DATETIME NOT NULL, 
+    `lastUsed` DATETIME NULL,
 
     CONSTRAINT pk_user_session
         PRIMARY KEY (`id`),
