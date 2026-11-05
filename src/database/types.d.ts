@@ -28,7 +28,7 @@ export interface ThreadUserTable {
 }
 
 export interface UserSessionTable {
-    id: Generated<number>,
+    id: UUID,
     user: UUID,
     token: string,
     isBot: boolean,

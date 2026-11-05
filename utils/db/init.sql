@@ -26,7 +26,7 @@ CREATE TABLE `user` (
 );
 
 CREATE TABLE `userSession` (
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id` UUID NOT NULL,
     `user` UUID NOT NULL,
     `token` TEXT NOT NULL,
     `isBot` BIT NOT NULL,
